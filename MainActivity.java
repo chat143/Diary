@@ -16,10 +16,10 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle b) {
         super.onCreate(b);
-        int bg = Color.parseColor("#F6F7FB");
+        int bg = Color.parseColor("#F3F4F6");
         Window win = getWindow();
         win.setStatusBarColor(bg);
-        win.setNavigationBarColor(bg);
+        win.setNavigationBarColor(Color.WHITE);
         int f = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
         if (Build.VERSION.SDK_INT >= 26) f |= View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
         win.getDecorView().setSystemUiVisibility(f);
@@ -41,4 +41,4 @@ public class MainActivity extends Activity {
             if (!"true".equals(v)) finish();
         });
     }
-}
+                             }
