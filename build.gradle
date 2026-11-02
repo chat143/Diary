@@ -1,0 +1,25 @@
+plugins { id 'com.android.application' version '8.3.2' }
+
+android {
+    namespace 'com.mydiary.app'
+    compileSdk 34
+    defaultConfig {
+        applicationId 'com.mydiary.app'
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName '1.0'
+    }
+    // সব ফাইল মেইন ফোল্ডারেই থাকবে (src/main লাগবে না)
+    sourceSets.main {
+        manifest.srcFile 'AndroidManifest.xml'
+        java { srcDirs = ['.']; exclude 'build/**' }
+        res.srcDirs = ['res']
+        assets.srcDirs = ['assets']
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    lint { checkReleaseBuilds false; abortOnError false }
+}
