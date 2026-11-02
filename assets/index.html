@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>My diary</title>
+<style>
+:root{--ink:#111318;--mut:#6f7480;--sh:0 14px 30px rgba(110,116,132,.2);
+--bg:radial-gradient(80% 50% at 105% 55%,#c3c7d0 0%,rgba(195,199,208,0) 70%),radial-gradient(60% 35% at 0% 0%,#fff 0%,rgba(255,255,255,0) 70%),linear-gradient(180deg,#f1f2f5 0%,#fff 100%)}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html{background:#f3f4f6}
+body{color:var(--ink);font:16px/1.5 -apple-system,"Inter","SF Pro Text",system-ui,"Noto Sans Bengali",sans-serif;-webkit-user-select:none;user-select:none}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:var(--bg)}
+input,textarea{font:inherit;color:inherit;border:0;outline:0;background:none;width:100%;-webkit-user-select:text;user-select:text}
+button{font:inherit;border:0;background:none;color:inherit;cursor:pointer}
+::placeholder{color:#9aa0ab}
+svg.i{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.app{max-width:640px;margin:auto;padding:24px 20px 120px}
+.tile{width:64px;height:64px;border-radius:22px;display:grid;place-items:center;background:linear-gradient(145deg,#fff,#eceef2);border:1.5px solid #fff;box-shadow:var(--sh);transition:transform .15s}
+.tile.s{width:46px;height:46px;border-radius:16px;flex:none}
+.tile:active,.btn:active,.item:active{transform:scale(.97)}
+.hd{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+.ti{flex:1;min-width:0}
+h1{font-size:28px;font-weight:800;letter-spacing:-.5px;line-height:1.15}
+.ti p{color:var(--mut);font-size:13px}
+.in{display:flex;align-items:center;gap:10px;background:linear-gradient(#f1f2f5,#fafafb);border:1px solid #e1e3e9;border-radius:20px;padding:0 16px;height:54px;box-shadow:inset 0 1px 3px rgba(0,0,0,.05);color:var(--mut);margin-bottom:18px}
+.item{padding:16px 18px;margin-bottom:14px;border-radius:26px;background:linear-gradient(145deg,rgba(255,255,255,.85),rgba(229,232,237,.75));border:1.5px solid #fff;box-shadow:var(--sh);transition:transform .15s}
+.item small{color:var(--mut);font-size:12px;font-weight:500}
+.item h3{font-size:18px;font-weight:700;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.item p{color:var(--mut);font-size:14px;line-height:1.45;margin-top:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.item p:empty{display:none}
+.em{text-align:center;padding:70px 20px;color:var(--mut)}
+.em .tile{margin:0 auto 18px}
+.em h3{color:var(--ink);font-size:20px;font-weight:700}
+.fab{position:fixed;right:22px;bottom:calc(24px + env(safe-area-inset-bottom));width:64px;height:64px;border-radius:22px;background:linear-gradient(145deg,#2a2d35,#0e0f13);color:#fff;display:grid;place-items:center;box-shadow:0 14px 30px rgba(20,22,30,.35);transition:transform .15s}
+.fab:active{transform:scale(.92)}
+.cr{text-align:center;margin-top:30px;color:#9aa0ab;font-size:12px;letter-spacing:.3px}
+.cr b{display:block;color:var(--ink);font-size:16px;font-weight:700;margin-top:1px}
+.ed{position:fixed;inset:0;background:#f3f4f6 var(--bg);display:flex;flex-direction:column;transform:translateY(100%);transition:transform .28s cubic-bezier(.2,.8,.2,1);visibility:hidden;padding-top:env(safe-area-inset-top)}
+.ed.on{transform:none;visibility:visible}
+.tb{display:flex;align-items:center;justify-content:space-between;padding:12px 18px}
+.tb .d{color:var(--mut);font-size:14px;font-weight:500}
+#t{font-size:28px;font-weight:800;letter-spacing:-.5px;padding:10px 22px 4px}
+#b{flex:1;resize:none;padding:6px 22px 14px;font-size:17px;line-height:1.8}
+.ft{display:flex;justify-content:space-between;padding:10px 22px calc(12px + env(safe-area-inset-bottom));color:var(--mut);font-size:13px}
+.ov{position:fixed;inset:0;background:rgba(30,33,45,.25);display:flex;align-items:flex-end;justify-content:center;opacity:0;visibility:hidden;transition:.2s;z-index:9}
+.ov.on{opacity:1;visibility:visible}
+.sh{width:100%;max-width:640px;background:linear-gradient(160deg,#fff,#eceef2);border-top:1.5px solid #fff;border-radius:30px 30px 0 0;padding:24px 20px calc(24px + env(safe-area-inset-bottom));transform:translateY(30px);transition:.25s}
+.ov.on .sh{transform:none}
+.sh h3{font-size:20px;font-weight:800}
+.sh p{color:var(--mut);font-size:14px;margin:4px 0 14px}
+.sh textarea{height:120px;border-radius:18px;padding:12px 14px;font-size:12px;margin-bottom:14px;background:linear-gradient(#f1f2f5,#fafafb);border:1px solid #e1e3e9}
+.row{display:flex;gap:12px}
+.btn{flex:1;height:54px;border-radius:20px;background:linear-gradient(145deg,#fff,#eceef2);border:1.5px solid #fff;box-shadow:var(--sh);font-weight:700;font-size:17px;color:var(--ink);transition:transform .15s}
+.btn.k{background:linear-gradient(145deg,#2a2d35,#0e0f13);color:#fff;border-color:#2a2d35}
+.btn.r{color:#d33a3a}
+</style></head><body>
+<div class="app">
+  <div class="hd">
+    <div class="tile s" data-ic="book"></div>
+    <div class="ti"><h1>My diary</h1><p id="dt"></p></div>
+    <button class="tile s" id="mn" data-ic="dots" aria-label="Menu"></button>
+  </div>
+  <label class="in"><span data-ic="find" style="display:flex"></span><input id="q" placeholder="Search"></label>
+  <div id="list"></div>
+  <div class="cr">Designed &amp; developed by<b>Adnan Sami</b></div>
+</div>
+<button class="fab" id="fab" data-ic="plus" aria-label="New entry"></button>
+
+<div class="ed" id="ed">
+  <div class="tb"><button class="tile s" id="bk" data-ic="back"></button><div class="d" id="ed-d"></div><button class="tile s" id="dl" data-ic="trash"></button></div>
+  <input id="t" placeholder="Title" maxlength="80">
+  <textarea id="b" placeholder="Start writing…"></textarea>
+  <div class="ft"><span id="wc"></span><span id="sv"></span></div>
+</div>
+<div class="ov" id="ov"><div class="sh" id="sh"></div></div>
+
+<script>
+const $=s=>document.querySelector(s),K='mydiary.v1';
+let E=[];try{E=JSON.parse(localStorage.getItem(K)||'[]')}catch(e){}
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(E))}catch(e){}};
+const P={book:'<path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11"/>',
+dots:'<circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/>',
+back:'<path d="M15 5l-7 7 7 7"/>',trash:'<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',
+plus:'<path d="M12 5v14M5 12h14"/>',find:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>'};
+const I=k=>`<svg class="i" viewBox="0 0 24 24">${P[k]}</svg>`;
+document.querySelectorAll('[data-ic]').forEach(e=>e.innerHTML=I(e.dataset.ic));
+const MO=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],DY=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const fmt=t=>{const d=new Date(t);return DY[d.getDay()]+', '+d.getDate()+' '+MO[d.getMonth()]+' '+d.getFullYear()};
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const CR='<div class="cr">Designed &amp; developed by<b>Adnan Sami</b></div>';
+let q='',cur=null;
+$('#dt').textContent=fmt(Date.now());
+
+function render(){
+  const l=E.filter(e=>!q||(e.t+' '+e.b).toLowerCase().includes(q.toLowerCase())).sort((a,b)=>b.d-a.d);
+  $('#list').innerHTML=l.length?l.map(e=>`<div class="item" data-id="${e.id}"><small>${fmt(e.d)}</small><h3>${esc(e.t||'Untitled')}</h3><p>${esc(e.b.replace(/\s+/g,' ').slice(0,100))}</p></div>`).join(''):
+  `<div class="em"><div class="tile">${I('book')}</div><h3>${E.length?'No results':'No entries yet'}</h3>${E.length?'Try a different word.':'Tap + to write your first page.'}</div>`;
+  document.querySelectorAll('.item').forEach(c=>c.onclick=()=>openEd(c.dataset.id));
+}
+$('#q').oninput=e=>{q=e.target.value;render()};
+
+function openEd(id){
+  cur=id?E.find(e=>e.id===id):{id:Date.now().toString(36),t:'',b:'',d:Date.now()};
+  $('#t').value=cur.t;$('#b').value=cur.b;$('#ed-d').textContent=fmt(cur.d);
+  $('#dl').style.visibility=id?'visible':'hidden';
+  info();$('#ed').classList.add('on');
+  if(!id)setTimeout(()=>$('#t').focus(),300);
+}
+function info(){const w=cur.b.trim()?cur.b.trim().split(/\s+/).length:0;$('#wc').textContent=w+(w===1?' word':' words')}
+let tm;
+function persist(){
+  if(!cur.t.trim()&&!cur.b.trim())return;
+  if(!E.find(e=>e.id===cur.id))E.push(cur);
+  save();$('#sv').textContent='Saved';$('#dl').style.visibility='visible';
+}
+function typing(){cur.t=$('#t').value;cur.b=$('#b').value;info();$('#sv').textContent='';clearTimeout(tm);tm=setTimeout(persist,500)}
+$('#t').oninput=$('#b').oninput=typing;
+function closeEd(){clearTimeout(tm);cur.t=$('#t').value;cur.b=$('#b').value;persist();
+  $('#ed').classList.remove('on');document.activeElement.blur();cur=null;$('#sv').textContent='';render()}
+$('#bk').onclick=closeEd;
+$('#fab').onclick=()=>openEd();
+$('#dl').onclick=()=>sheet(`<h3>Delete entry?</h3><p>This can't be undone.</p>
+  <div class="row"><button class="btn" onclick="shut()">Cancel</button><button class="btn r" id="yes">Delete</button></div>`,
+  ()=>$('#yes').onclick=()=>{E=E.filter(e=>e.id!==cur.id);save();shut();$('#ed').classList.remove('on');cur=null;render()});
+
+function sheet(h,f){$('#sh').innerHTML=h;$('#ov').classList.add('on');f&&f()}
+function shut(){$('#ov').classList.remove('on')}
+$('#ov').onclick=e=>{if(e.target.id==='ov')shut()};
+
+$('#mn').onclick=()=>sheet(`<h3>Backup</h3>
+  <p>Copy this text and keep it safe. Paste it here later and tap Restore to get your entries back.</p>
+  <textarea id="bj" spellcheck="false">${esc(JSON.stringify(E))}</textarea>
+  <div class="row"><button class="btn" id="cp">Copy</button><button class="btn k" id="rs">Restore</button></div>${CR}`,
+  ()=>{$('#cp').onclick=()=>{$('#bj').select();document.execCommand('copy');$('#cp').textContent='Copied'};
+  $('#rs').onclick=()=>{try{const a=JSON.parse($('#bj').value);if(!Array.isArray(a))throw 0;
+    a.forEach(x=>{if(x&&x.id&&!E.find(e=>e.id===x.id))E.push({id:x.id,t:x.t||'',b:x.b||'',d:x.d||Date.now()})});
+    save();shut();render()}catch(e){$('#rs').textContent='Invalid'}}});
+
+window.goBack=()=>{if($('#ov').classList.contains('on')){shut();return true}
+  if(cur){closeEd();return true}return false};
+render();
+</script></body></html>
