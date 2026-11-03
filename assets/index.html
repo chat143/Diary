@@ -33,8 +33,10 @@ h1{font-size:28px;font-weight:800;letter-spacing:-.5px;line-height:1.15}
 .fab{position:fixed;right:22px;bottom:calc(24px + env(safe-area-inset-bottom));width:64px;height:64px;border-radius:22px;background:linear-gradient(145deg,#2a2d35,#0e0f13);color:#fff;display:grid;place-items:center;box-shadow:0 14px 30px rgba(20,22,30,.35);transition:transform .15s}
 .fab:active{transform:scale(.92)}
 .cr{text-align:center;margin-top:30px;color:#9aa0ab;font-size:12px;letter-spacing:.3px}
-.cr b{display:block;color:var(--ink);font-size:16px;font-weight:700;margin-top:1px}
-.ed{position:fixed;inset:0;background:#f3f4f6 var(--bg);display:flex;flex-direction:column;transform:translateY(100%);transition:transform .28s cubic-bezier(.2,.8,.2,1);visibility:hidden;padding-top:env(safe-area-inset-top)}
+.cr b{display:block;color:var(--ink);font-size:17px;font-weight:700;margin:2px 0 8px}
+.cr span{display:block}
+.cr em{display:block;font-style:normal;color:var(--mut);font-size:13px;margin-top:14px}
+.ed{position:fixed;inset:0;background-color:#f3f4f6;background-image:var(--bg);display:flex;flex-direction:column;transform:translateY(100%);transition:transform .28s cubic-bezier(.2,.8,.2,1);visibility:hidden;padding-top:env(safe-area-inset-top)}
 .ed.on{transform:none;visibility:visible}
 .tb{display:flex;align-items:center;justify-content:space-between;padding:12px 18px}
 .tb .d{color:var(--mut);font-size:14px;font-weight:500}
@@ -61,7 +63,7 @@ h1{font-size:28px;font-weight:800;letter-spacing:-.5px;line-height:1.15}
   </div>
   <label class="in"><span data-ic="find" style="display:flex"></span><input id="q" placeholder="Search"></label>
   <div id="list"></div>
-  <div class="cr">Designed &amp; developed by<b>Adnan Sami</b></div>
+  <div id="ft"></div>
 </div>
 <button class="fab" id="fab" data-ic="plus" aria-label="New entry"></button>
 
@@ -86,7 +88,8 @@ document.querySelectorAll('[data-ic]').forEach(e=>e.innerHTML=I(e.dataset.ic));
 const MO=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],DY=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 const fmt=t=>{const d=new Date(t);return DY[d.getDay()]+', '+d.getDate()+' '+MO[d.getMonth()]+' '+d.getFullYear()};
 const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const CR='<div class="cr">Designed &amp; developed by<b>Adnan Sami</b></div>';
+const CR='<div class="cr"><span>Made with ❤️ by</span><b>Adnan Sami</b><span>© Theme 2026</span><em>Thank you for using my app</em></div>';
+$('#ft').innerHTML=CR;
 let q='',cur=null;
 $('#dt').textContent=fmt(Date.now());
 
